@@ -1,13 +1,13 @@
 require 'colorize'
 require_relative 'cursor.rb'
 require_relative 'board.rb'
-require_relative 'game.rb'
 
 class Display
-  attr_reader :board
+  attr_reader :board, :selector
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0,0], board)
+    @selector = []
   end
 
   def render
@@ -21,10 +21,16 @@ class Display
 
       # @cursor.get_input
     # system("clear")
-    while true
-      system("clear")
-      background_color
-      @cursor.get_input
+    system("clear")
+    p @selector
+    background_color
+    if output = @cursor.get_input # when not nil we do a thing
+      if @selector.empty? || @selector.length == 2
+        @selector = []
+        @selector << output
+      elsif @selector.length == 1
+        @selector << output
+      end
     end
     puts ""
   end
@@ -33,17 +39,22 @@ class Display
     @board.grid.map.with_index do |row, idx|
       puts "\n"
       render_row(row, idx)
-
     end
   end
 
   def render_row(row, idx)
     row.map.with_index do |piece, j|
       if check_cursor?(idx,j)
-        print piece.value.colorize(background: :red)
+        print piece.value.colorize(background: :light_red)
       else
-      # bc = check_cursor
-        bg = (idx + j).even? ? :green : :yellow
+        if @selector.length == 1
+          ii, jj = @selector[0]
+        end
+        if [ii, jj] == [idx, j]
+          bg = :light_green
+        else
+          bg = (idx + j).even? ? :green : :light_yellow
+        end
         print piece.value.colorize(background: bg)
       end
     end

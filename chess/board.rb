@@ -9,10 +9,15 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    begin
-      raise "Empty start position ?????????" if valid_start_move?(start_pos)
-        raise "End pos is filled"
-      end
+    # begin
+    #   raise "Empty start position ?????????" if valid_start_move?(start_pos)
+    #     raise "End pos is filled"
+    #   end
+    if valid_start_move?(start_pos) && valid_end_move?(start_pos, end_pos)
+      self[start_pos].pos = end_pos
+      self[end_pos] = self[start_pos] # keep track of moved? for pawns, rook, king
+      self[start_pos] = NullPiece.instance
+    end
   end
 
   def valid_start_move?(pos)
@@ -21,7 +26,15 @@ class Board
 
   # not finished
   def valid_end_move?(start_pos, end_pos)
-    poss_moves = self[start_pos].possible_moves(start_pos)
+    poss_moves = self[start_pos].moves
+    return false unless poss_moves.include?(end_pos)
+    # also need to check collision for other pieces
+    if self[end_pos].class == NullPiece # need extra check for pawns
+      return true
+    else
+      return false if self[end_pos].player == self[start_pos].player #unless castling
+    end
+    true
   end
 
   def [](pos)

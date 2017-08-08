@@ -1,7 +1,7 @@
 require 'byebug'
 require_relative "board.rb"
 require_relative "player.rb"
-
+require_relative "display.rb"
 class Game
   attr_accessor :board
   attr_reader :player1, :player2
@@ -12,6 +12,17 @@ class Game
     @player2.player_color = :black
     @board = Board.new()
     fill_up_board
+  end
+
+
+  def play
+    d = Display.new(@board)
+    while true
+      d.render
+      if d.selector.length == 2
+        @board.move_piece(d.selector[0], d.selector[1])
+      end
+    end
   end
 
   def fill_up_board
