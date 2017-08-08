@@ -7,7 +7,9 @@ class Game
   attr_reader :player1, :player2
   def initialize(player1 = "Ryan", player2 = "David")
     @player1 = Player.new(player1)
+    @player1.player_color = :white
     @player2 = Player.new(player2)
+    @player2.player_color = :black
     @board = Board.new()
     fill_up_board
   end

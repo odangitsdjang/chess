@@ -14,42 +14,42 @@ end
 
 class Rook < Piece
   def initialize(player, pos)
-    @value = " R "
+    @value = player.player_color == :black ? " ♜ " : " ♖ "
     super
   end
 end
 
 class Knight < Piece
   def initialize(player, pos)
-    @value = " k "
+    @value = player.player_color == :black ? " ♞ " : " ♘ "
     super
   end
 end
 
 class Bishop < Piece
   def initialize(player, pos)
-    @value = " b "
+    @value = player.player_color == :black ? " ♝ " : " ♗ "
     super
   end
 end
 
 class Queen < Piece
   def initialize(player, pos)
-    @value = " Q "
+    @value = player.player_color == :black ? " ♛ " : " ♕ "
     super
   end
 end
 
 class King < Piece
   def initialize(player, pos)
-    @value = " K "
+    @value = player.player_color == :black ? " ♚ " : " ♔ "
     super
   end
 end
 
 class Pawn < Piece
   def initialize(player, pos)
-    @value = " p "
+    @value = player.player_color == :black ? " ♟ " : " ♙ "
     super
   end
 
