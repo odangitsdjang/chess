@@ -1,5 +1,7 @@
+require 'singleton'
+
 class Piece
-  attr_reader :moved, :player, :pos
+  attr_reader :moved, :player, :pos, :value
   def initialize(player, pos)
     @player = player
     @moved = false
@@ -12,47 +14,42 @@ end
 
 class Rook < Piece
   def initialize(player, pos)
-    @value = "R"
+    @value = " R "
     super
   end
 end
 
 class Knight < Piece
-  attr_reader :value
   def initialize(player, pos)
-    @value = "k"
+    @value = " k "
     super
   end
 end
 
 class Bishop < Piece
-  attr_reader :value
   def initialize(player, pos)
-    @value = "b"
+    @value = " b "
     super
   end
 end
 
 class Queen < Piece
-  attr_reader :value
   def initialize(player, pos)
-    @value = "Q"
+    @value = " Q "
     super
   end
 end
 
 class King < Piece
-  attr_reader :value
   def initialize(player, pos)
-    @value = "K"
+    @value = " K "
     super
   end
 end
 
 class Pawn < Piece
-  attr_reader :value
   def initialize(player, pos)
-    @value = "p"
+    @value = " p "
     super
   end
 
@@ -67,7 +64,10 @@ end
 # require "singleton"
 
 class NullPiece < Piece
-  # include Singleton
-  # private
+  include Singleton
+  def initialize
+    @value = "   "
+  end
+
 
 end

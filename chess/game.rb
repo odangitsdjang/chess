@@ -1,3 +1,4 @@
+require 'byebug'
 require_relative "board.rb"
 require_relative "player.rb"
 
@@ -14,7 +15,7 @@ class Game
   def fill_up_board
     put_pieces(@player1)
     put_pieces(@player2)
-    # init_null_pieces
+    init_null_pieces
   end
 
   def put_pieces(player)
@@ -46,7 +47,7 @@ class Game
   def init_null_pieces
     (2..5).each do |x|
       (0..7).each do |y|
-        @board[[x,y]] = NullPiece.new
+        @board[[x,y]] = NullPiece.instance
       end
     end
   end

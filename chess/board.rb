@@ -35,7 +35,7 @@ class Board
   end
 
   def in_bounds
-    
+
   end
 
 
