@@ -34,7 +34,25 @@ class Board
     else
       return false if self[end_pos].player == self[start_pos].player #unless castling
     end
+    # not_blocked?(start_pos, end_pos)
     true
+  end
+
+
+#not working currently
+  def not_blocked?(start_pos, end_pos)
+    if start_pos[0] == end_pos[0] #vertical
+      #true if all null piece
+      return (start_pos[1]+1...end_pos[1]).all? do |j|
+        self[[start_pos[0],j]].class == NullPiece
+      end
+    end
+    if start_pos[1] == end_pos[1]
+      return (start_pos[0]+1...end_pos[0]).all? do |i|
+        self[[i, start_pos[1]]].class == NullPiece
+      end
+    end
+    false
   end
 
   def [](pos)

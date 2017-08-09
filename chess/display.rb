@@ -53,7 +53,7 @@ class Display
         if [ii, jj] == [idx, j]
           bg = :light_green
         else
-          bg = (idx + j).even? ? :green : :light_yellow
+          bg = (idx + j).even? ? :green : :white
         end
         print piece.value.colorize(background: bg)
       end
